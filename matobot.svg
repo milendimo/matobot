@@ -1,0 +1,24 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <defs>
+  <filter height="200%" width="200%" y="-50%" x="-50%" id="svg_5_blur">
+   <feGaussianBlur stdDeviation="0" in="SourceGraphic"/>
+  </filter>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="102" width="102" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <text filter="url(#svg_5_blur)" opacity="0.8" transform="rotate(50 22.093749999999996,37.00000000000001) " xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="22" id="svg_1" y="42.5" x="15.5" stroke-width="0" stroke="#000" fill="#009fcb">1</text>
+  <text filter="url(#svg_5_blur)" opacity="0.8" transform="rotate(-50 31.093749999999986,75) " xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="22" id="svg_2" y="80.5" x="24.5" stroke-width="0" stroke="#000" fill="#009fcb">3</text>
+  <text filter="url(#svg_5_blur)" opacity="0.8" stroke="#000" transform="rotate(55.35426330566406 64.76087951660156,73.76998901367188) matrix(1.085486300574061,0,0,1.0065132116680928,-31.25377655064318,5.413587114746678) " xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="22" id="svg_3" y="73.650398" x="81.865496" stroke-width="0" fill="#009fcb">5</text>
+  <text filter="url(#svg_5_blur)" opacity="0.8" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="22" id="svg_4" y="19.5" x="52.5" stroke-width="0" stroke="#000" fill="#009fcb">2</text>
+  <text filter="url(#svg_5_blur)" opacity="0.8" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="22" id="svg_5" y="33.5" x="81.5" stroke-width="0" stroke="#000" fill="#009fcb">8</text>
+  <image stroke="null" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAACpklEQVRoQ+2YgW0UMRBFfyoAOoAKIBUAFUAqACoIVABUEKgAqCChAqACoALSAaEC0JM8yDjetce7cycdaynSXc6znjd/Zuz1kQ5kHB0IhzaQDiVvSzqTdC/N/SbphaTLDlv3lChFgPgq6Wbh0ZWk4wiYKJALSY8kfZH0NMG8l3Rf0kdJj90hbxhEgfxMatzJoo9KP9J3/r/qiAIhhW5IuiWJzwwD+VVJucVQUSCk0RNJnyU9S16+k/RA0ocs3RYD2AOiQIg+XQpV8oEadLHVO1cUiKXSq6QM31GC76tD8PBIEFPid/oQulbowxPABuLpBF5FKOLT1H3s6OFZr2cuTYJu99ZTTx4Qzk3PezxZcc6bdD5rPrIX5FNSwboPCxC5iIHSBIx9iMFx56S1UA8ITpNO7AFsaFEApa8AkWLsRaTZbDa0QOxYwSKcWncFYVDAcIpm5Oe2awK1QEyNkGNFK13S73bcmVWlBUI0iMo+1ChVIRvwozpaIDvZzDqUafqxBsjL1ARoBBQnf68bznltwkEs9Uq/59JgxCYUhJMskaUt8zpLv+cVluKkZaIKc/IxYoN9KIhF9mFKJ3MYmPP0vk665WPExg1i1LX0rtXSXJSmfhuxyUEmfcsd9IJQB3cleRQZsRkGqcHVFLF853KBGuGahysgaoT7rLka8dhMpdY/6racbhWZRbiU/Ht2w1jraCjpsan5sSoIzqAMRc3lGxdy7CNltyqd9trsBKRjY148ZQOxELZqZHGoOx+wKXIQivTu7J1Zscq05ma9ZGdv7bgjBFOvFS6Q2sKtYp9bIAJk8v1p6YuV93Dond9dqxtICpU3wt75myJlgfYWe5mi3siPrvPX3/+uRkZaaYTN4vYb4dTIM4dBRhbbi02rRvbi1MiiBwPyBz+x0zNQUCeJAAAAAElFTkSuQmCC" id="svg_6" height="38.999999" width="42.000001" y="23" x="31"/>
+ </g>
+</svg>

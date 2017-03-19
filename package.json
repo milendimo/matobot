@@ -1,0 +1,16 @@
+{
+  "name": "matobot",
+  "version": "0.0.2",
+  "description": "Primary maths quiz bot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Milen",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^3.7.0",
+    "expressjs": "^1.0.1",
+    "restify": "^4.3.0"
+  }
+}
