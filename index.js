@@ -52,13 +52,17 @@ bot.dialog('rootMenu', [
     },
     function (session, results) {
         session.dialogData.level =  results.response;
+        builder.Prompts.number(session, "Please select the top number for the quiz (1 to ...)");
+    },
+    function (session, results) {
+        session.dialogData.limit =  results.response;
         builder.Prompts.number(session, "Please select number of questions");
     },
     function (session, results) {
         session.dialogData.count =  results.response;
         
         //create a random list of maths quesitons and coresponding answers
-        session.dialogData.quiz = quiz.create(session.dialogData.level, session.dialogData.count);
+        session.dialogData.quiz = quiz.create(session.dialogData.level, session.dialogData.limit, session.dialogData.count);
 
         session.replaceDialog('quizDialog', session.dialogData);
     },
@@ -66,7 +70,7 @@ bot.dialog('rootMenu', [
         // Reload menu
         session.replaceDialog('rootMenu');
     }
-]).reloadAction('showMenu', null, { matches: /^(menu|back)/i });
+]);
 
 
 // Loop throug all generated questions and evaluate each answer.
@@ -87,7 +91,7 @@ bot.dialog('quizDialog', [
         //TODO: may be useful later
         //var rand_emoticon = "&#" + Math.floor(math.random(9728, 9983)) + ";";
 
-        if (results.response == res)
+        if (results.response === res)
           session.send("&#9786; That is the correct answer");
         else
           session.send("&#9785; Sorry, the correct answer is *"+ res + "*");
@@ -97,11 +101,17 @@ bot.dialog('quizDialog', [
         // Check for end of form
         if (session.dialogData.index >= session.dialogData.quiz.length) {
             //Finalize and get back to main menu`
-            session.send("You have now completed the maths quiz.");
+            session.send("You have now completed this maths quiz.");
+
+            session.replaceDialog('rootMenu');
+
+            //TODO: Use timeout before reloading root menu?
+            /*
             setTimeout(function() {
                 session.send("Let's start again... ");
                 session.replaceDialog('rootMenu');
             }, 5000);
+            */
         } else {
             // Next fields
             session.replaceDialog('quizDialog', session.dialogData);
