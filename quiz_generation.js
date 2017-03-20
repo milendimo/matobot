@@ -153,7 +153,6 @@ generateSquareroots  = function(){
       //get random number from 2 up to the selected limit  
       var a = Math.floor(math.random(2, _limit));
 
-
       //result is a, question is square root of square(a).
       var res = a;
 
