@@ -1,2 +1,33 @@
-Home page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Welcome to Matobot</title>
+    <meta name="description" content="Matobot is a primary maths quiz bot">
+    <meta name="keywords" content="Matobot, quiz, bot, maths, primary, school">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body{
+            margin: 0;
+        }
 
+        iframe{
+            position:fixed; 
+            top:0px; 
+            left:0px; 
+            bottom:0px; 
+            right:0px; 
+            width:100%; 
+            height:100%; 
+            border:none; 
+            margin:0; 
+            padding:0; 
+            overflow:hidden; 
+            z-index:999999;
+        }
+    </style>
+</head>
+<body> 
+ <iframe src="https://webchat.botframework.com/embed/matobot?t=<%= token %>" ></iframe>
+</body>
+</html>

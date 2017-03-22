@@ -6,14 +6,18 @@
 //Load prerequisites
 var restify = require('restify');
 var builder = require('botbuilder');
+var ejs = require('ejs');
+var fs = require('fs');
+var https = require('https');
 
+//custom module
 var quiz = require('./quiz_generation');
 
 // Setup Restify Server
 var server = restify.createServer();
 
 //Listen on predefined port
-server.listen(process.env.port || process.env.PORT || 3978, function () {
+server.listen(process.env.port || process.env.PORT || 9876, function () {
    console.log('%s listening to %s', server.name, server.url); 
 });
 
@@ -28,10 +32,51 @@ var connector = new builder.ChatConnector({
 server.post('/api/messages', connector.listen());  
 
 //Serve index home page
-server.get('/', restify.serveStatic({
- directory: __dirname,
- default: '/index.html'
-}));
+server.get('/', function indexHTML(req, res, next) {
+    
+    //TODO:
+    //Prevent page being loaded on external sites.
+    
+    //get template file for the home page
+    fs.readFile(__dirname + '/index.html', 'utf-8', function (err, data) {
+        if (err) {
+            next(err);
+            return;
+        }
+
+        //options for the request to acquire auth bot token
+        //TODO: Urls/path in config?        
+        var options = {
+            host: 'webchat.botframework.com',
+            path: '/api/tokens',
+            port: 443,
+            method: 'GET',
+            headers: {
+                'Authorization': 'BotConnector ' + 'CwHEfQgvBYI.cwA.Xeg.rSUe9R3F8MCHS61h27Iko9XgAkAfutp6jbnkVXBZD4M' //process.env.BotSecretKey
+            }
+        };
+
+        //receive unique token for the current session 
+        https.get(options, (resp) => {        
+            resp.on('data', (token) => {
+
+                    //replace trailing "s 
+                    token = token.toString().replace(/\"/g, '');
+
+                    //rendr HTML code and add the acquired token
+                    //TODO: Is that really needed? Can be done with a replace?
+                    var renderedHtml = ejs.render(data, {token: token}); 
+
+                    //return response as the generated html page
+                    res.setHeader('Content-Type', 'text/html');
+                    res.writeHead(200);
+                    res.end(renderedHtml);
+                    next();
+                });
+        });
+
+    });
+});
 
 //Initiate bot
 var bot = new builder.UniversalBot(connector, [
@@ -44,7 +89,7 @@ var bot = new builder.UniversalBot(connector, [
  }
 ]);
 
-// Bot Dialogs
+//Bot Dialogs
 //Collect required params to generate the quiz
 bot.dialog('rootMenu', [
     function (session) {
@@ -52,14 +97,15 @@ bot.dialog('rootMenu', [
     },
     function (session, results) {
         session.dialogData.level =  results.response;
-        builder.Prompts.number(session, "Please select the top number for the quiz (1 to ...)");
+        
+        builder.Prompts.number(session, "Please select number of questions");
+    },    
+    function (session, results) {
+        session.dialogData.count =  results.response;
+        builder.Prompts.number(session, "Please select the biggest number in this quiz (1 to ...)");
     },
     function (session, results) {
         session.dialogData.limit =  results.response;
-        builder.Prompts.number(session, "Please select number of questions");
-    },
-    function (session, results) {
-        session.dialogData.count =  results.response;
         
         //create a random list of maths quesitons and coresponding answers
         session.dialogData.quiz = quiz.create(session.dialogData.level, session.dialogData.limit, session.dialogData.count);
@@ -68,6 +114,7 @@ bot.dialog('rootMenu', [
     },
     function (session) {
         // Reload menu
+        session.send("Here we go again ... ");        
         session.replaceDialog('rootMenu');
     }
 ]);
@@ -100,8 +147,9 @@ bot.dialog('quizDialog', [
 
         // Check for end of form
         if (session.dialogData.index >= session.dialogData.quiz.length) {
-            //Finalize and get back to main menu`
+            //Finalize and get back to main menu
             session.send("You have now completed this maths quiz.");
+            session.send("Here we go again ... ");     
 
             session.replaceDialog('rootMenu');
 
