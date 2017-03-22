@@ -52,7 +52,7 @@ server.get('/', function indexHTML(req, res, next) {
             port: 443,
             method: 'GET',
             headers: {
-                'Authorization': 'BotConnector ' + 'CwHEfQgvBYI.cwA.Xeg.rSUe9R3F8MCHS61h27Iko9XgAkAfutp6jbnkVXBZD4M' //process.env.BotSecretKey
+                'Authorization': 'BotConnector ' + process.env.BotSecretKey
             }
         };
 
