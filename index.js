@@ -64,7 +64,7 @@ server.get('/', function indexHTML(req, res, next) {
                     token = token.toString().replace(/\"/g, '');
 
                     //rendr HTML code and add the acquired token
-                    //TODO: Is that really needed? Can be done with a replace?
+                    //TODO: Is that really needed? Can it be done with a replace?
                     var renderedHtml = ejs.render(data, {token: token}); 
 
                     //return response as the generated html page
@@ -81,13 +81,25 @@ server.get('/', function indexHTML(req, res, next) {
 //Initiate bot
 var bot = new builder.UniversalBot(connector, [
  function (session) {
+       
         session.send("Hiya I am *matobot*");
         session.send("Here we go... ");
         
         //display initial menu dialog
-        session.beginDialog('rootMenu');
+        session.beginDialog('rootMenu');       
  }
 ]);
+
+//do not await user interaction and automatically begin the conversation 
+bot.on('conversationUpdate', function (message) {
+    if (message.membersAdded) {
+        message.membersAdded.forEach(function (identity) {
+            if (identity.id === message.address.bot.id) {
+                bot.beginDialog(message.address, '/');
+            }
+        });
+    }
+});
 
 //Bot Dialogs
 //Collect required params to generate the quiz
@@ -128,8 +140,13 @@ bot.dialog('quizDialog', [
         session.dialogData.index = args.index ? args.index : 0;
         session.dialogData.quiz = args.quiz;
 
-        // Prompt user for next field
-        builder.Prompts.number(session, session.dialogData.quiz[session.dialogData.index].question);
+        // Prompt user for next field only if there is a valid quiz
+        if(typeof session.dialogData.quiz[session.dialogData.index] !== 'undefined') {
+          builder.Prompts.number(session, session.dialogData.quiz[session.dialogData.index].question);
+        }
+        else{
+            session.replaceDialog('rootMenu');
+        }
     },
     function (session, results) {
         //Evaluate the result.
