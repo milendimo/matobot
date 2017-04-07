@@ -34,6 +34,13 @@ server.post('/api/messages', connector.listen());
 //Serve index home page
 server.get('/', function indexHTML(req, res, next) {
     
+    //TODO: Redirect all requests to https version
+    /*
+    if (req.headers['x-forwarded-proto'] != 'https') {           
+        return res.redirect('https://' + req.headers.host + req.url);    
+    }
+    */
+     
     //TODO:
     //Prevent page being loaded on external sites.
     
@@ -79,27 +86,37 @@ server.get('/', function indexHTML(req, res, next) {
 });
 
 //Initiate bot
-var bot = new builder.UniversalBot(connector, [
- function (session) {
-       
-        session.send("Hiya I am *matobot*");
-        session.send("Here we go... ");
-        
-        //display initial menu dialog
-        session.beginDialog('rootMenu');       
+var bot = new builder.UniversalBot(connector); 
+
+/*
+[function (session) {
+    //display initial menu dialog
+    //session.beginDialog('rootMenu');       
  }
 ]);
+*/
 
 //do not await user interaction and automatically begin the conversation 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
             if (identity.id === message.address.bot.id) {
-                bot.beginDialog(message.address, '/');
+                bot.beginDialog(message.address, 'defaultDialog'); //TODO: Redirect to "/" root dialog, it does not work as a web chat, while works in the emulator.
             }
         });
     }
 });
+
+//Bot Dialogs
+//Default dialog to be displayed 
+bot.dialog('defaultDialog', [
+    function (session) {
+        session.send("Hiya I am *matobot*");
+        session.send("Here we go... ");
+        
+        session.replaceDialog('rootMenu');
+    }
+]);
 
 //Bot Dialogs
 //Collect required params to generate the quiz
