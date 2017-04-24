@@ -100,14 +100,9 @@ bot.on('conversationUpdate', function (message) {
     }
 });
 
-//default entry point for the bot conversation
-bot.dialog('/', function (session) {
-    session.beginDialog('defaultMenu');  
-});
-
 //Bot Dialogs
 //Default dialog to be displayed 
-bot.dialog('defaultMenu', [
+bot.dialog('/', [
     function (session) {
         session.send("Hiya I am *matobot*");
         session.send("Here we go... ");
@@ -117,7 +112,7 @@ bot.dialog('defaultMenu', [
 ]);
 
 //Bot Dialogs
-//Collect required params to generate the quiz
+//Main dialog  - collect required params to generate the quiz
 bot.dialog('mainMenu', [
     function (session) {
         builder.Prompts.choice(session, "Please choose a quiz level", quiz.levels);
