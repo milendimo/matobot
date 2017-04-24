@@ -94,7 +94,7 @@ bot.on('conversationUpdate', function (message) {
         message.membersAdded.forEach(function (identity) {
             if (identity.id === message.address.bot.id) {
                 //TODO: Redirect to "/" root dialog, it does not work as a web chat, while works in the emulator.
-                bot.beginDialog(message.address, 'defaultMenu'); 
+                bot.beginDialog(message.address, '/'); 
             }
         });
     }
