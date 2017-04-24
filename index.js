@@ -94,19 +94,25 @@ bot.on('conversationUpdate', function (message) {
         message.membersAdded.forEach(function (identity) {
             if (identity.id === message.address.bot.id) {
                 //TODO: Redirect to "/" root dialog, it does not work as a web chat, while works in the emulator.
-                bot.beginDialog(message.address, '/home'); 
+                bot.beginDialog(message.address, 'welcomeDialog'); 
             }
         });
     }
 });
 
 //Bot Dialogs
-//Default dialog to be displayed 
-bot.dialog('/home', [
+//Welcome dialog to be displayed 
+bot.dialog('welcomeDialog', [
     function (session) {
-        session.send("Hiya I am *matobot*");
-        session.send("Here we go... ");
-        
+        session.send("Hiya I am *matobot*");        
+    }
+]);
+
+//Bot Dialogs
+//Default dialog to be displayed 
+bot.dialog('/', [
+    function (session) {
+        session.send("Here we go... ");        
         session.replaceDialog('mainMenu');
     }
 ]);
@@ -136,8 +142,7 @@ bot.dialog('mainMenu', [
     },
     function (session) {
         // Reload menu
-        session.send("Here we go again ... ");        
-        session.replaceDialog('mainMenu');
+        session.replaceDialog('/');
     }
 ]);
 
@@ -155,7 +160,7 @@ bot.dialog('quizDialog', [
           builder.Prompts.number(session, session.dialogData.quiz[session.dialogData.index].question);
         }
         else{
-            session.replaceDialog('mainMenu');
+            session.replaceDialog('/');
         }
     },
     function (session, results) {
@@ -176,9 +181,8 @@ bot.dialog('quizDialog', [
         if (session.dialogData.index >= session.dialogData.quiz.length) {
             //Finalize and get back to main menu
             session.send("You have now completed this maths quiz.");
-            session.send("Here we go again ... ");     
 
-            session.replaceDialog('mainMenu');
+            session.replaceDialog('/');
 
             //TODO: Use timeout before reloading root menu?
             /*
