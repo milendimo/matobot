@@ -86,16 +86,14 @@ server.get('/', function indexHTML(req, res, next) {
 });
 
 //Initiate bot
-var bot = new builder.UniversalBot(connector); 
-/*
-[function (session) {
-    //display initial menu dialog
-    //session.beginDialog('mainMenu');       
- }
-]);
-*/
+var bot = new builder.UniversalBot(connector);
+
+bot.dialog('/', function (session) {
+    session.beginDialog('mainMenu');  
+});
 
 //do not await user interaction and automatically begin the conversation 
+/*
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
@@ -106,6 +104,7 @@ bot.on('conversationUpdate', function (message) {
         });
     }
 });
+*/
 
 //Bot Dialogs
 //Default dialog to be displayed 
