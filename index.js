@@ -88,23 +88,22 @@ server.get('/', function indexHTML(req, res, next) {
 //Initiate bot
 var bot = new builder.UniversalBot(connector);
 
-bot.dialog('/', function (session) {
-    session.beginDialog('mainMenu');  
-});
-
 //do not await user interaction and automatically begin the conversation 
-/*
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
             if (identity.id === message.address.bot.id) {
                 //TODO: Redirect to "/" root dialog, it does not work as a web chat, while works in the emulator.
-                bot.beginDialog(message.address, 'mainMenu'); 
+                bot.beginDialog(message.address, 'defaultMenu'); 
             }
         });
     }
 });
-*/
+
+//default entry point for the bot conversation
+bot.dialog('/', function (session) {
+    session.beginDialog('defaultMenu');  
+});
 
 //Bot Dialogs
 //Default dialog to be displayed 
