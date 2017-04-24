@@ -94,7 +94,7 @@ bot.on('conversationUpdate', function (message) {
         message.membersAdded.forEach(function (identity) {
             if (identity.id === message.address.bot.id) {
                 //TODO: Redirect to "/" root dialog, it does not work as a web chat, while works in the emulator.
-                bot.beginDialog(message.address, '/'); 
+                bot.beginDialog(message.address, '/home'); 
             }
         });
     }
@@ -102,7 +102,7 @@ bot.on('conversationUpdate', function (message) {
 
 //Bot Dialogs
 //Default dialog to be displayed 
-bot.dialog('/', [
+bot.dialog('/home', [
     function (session) {
         session.send("Hiya I am *matobot*");
         session.send("Here we go... ");
