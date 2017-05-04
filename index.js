@@ -29,7 +29,7 @@ var connector = new builder.ChatConnector({
 });
 
 //Set listener for Post requests to go through bot framework
-server.post('/api/messages', connector.listen());  
+server.post('/api/messages', connector.listen()); 
 
 //Serve index home page
 server.get('/', function indexHTML(req, res, next) {
