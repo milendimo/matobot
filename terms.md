@@ -1,7 +1,7 @@
-# Matobot Terms Of Use
+#Matobot Terms Of Use
 
 By reading and using the Matobot, you are agreeing to the following terms and conditions, and these take effect from the date of first use.
-							
+						
 ### Liability Disclaimer
 In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of Matobot.
 
