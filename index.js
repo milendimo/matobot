@@ -88,31 +88,25 @@ server.get('/', function indexHTML(req, res, next) {
 //Initiate bot
 var bot = new builder.UniversalBot(connector);
 
+/* 
+//TODO: Currently not working on all platforms.
 //do not await user interaction and automatically begin the conversation 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
             if (identity.id === message.address.bot.id) {
-                //TODO: Redirect to "/" root dialog, it does not work as a web chat, while works in the emulator.
-                bot.beginDialog(message.address, 'welcomeDialog'); 
+                bot.beginDialog(message.address, 'mainMenu'); 
             }
         });
     }
 });
-
-//Bot Dialogs
-//Welcome dialog to be displayed 
-bot.dialog('welcomeDialog', [
-    function (session) {
-        session.send("Hiya I am *matobot*");        
-    }
-]);
+*/
 
 //Bot Dialogs
 //Default dialog to be displayed 
 bot.dialog('/', [
     function (session) {
-        session.send("Here we go... ");        
+        session.send("Hiya I am *matobot*");    
         session.replaceDialog('mainMenu');
     }
 ]);
@@ -121,6 +115,7 @@ bot.dialog('/', [
 //Main dialog  - collect required params to generate the quiz
 bot.dialog('mainMenu', [
     function (session) {
+        session.send("Here we go... ");   
         builder.Prompts.choice(session, "Please choose a quiz level", quiz.levels);
     },
     function (session, results) {
@@ -142,7 +137,7 @@ bot.dialog('mainMenu', [
     },
     function (session) {
         // Reload menu
-        session.replaceDialog('/');
+        session.replaceDialog('mainMenu');
     }
 ]);
 
@@ -160,7 +155,7 @@ bot.dialog('quizDialog', [
           builder.Prompts.number(session, session.dialogData.quiz[session.dialogData.index].question);
         }
         else{
-            session.replaceDialog('/');
+            session.replaceDialog('mainMenu');
         }
     },
     function (session, results) {
@@ -182,7 +177,7 @@ bot.dialog('quizDialog', [
             //Finalize and get back to main menu
             session.send("You have now completed this maths quiz.");
 
-            session.replaceDialog('/');
+            session.replaceDialog('mainMenu');
 
             //TODO: Use timeout before reloading root menu?
             /*
