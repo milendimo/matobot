@@ -116,16 +116,16 @@ bot.dialog('/', [
 bot.dialog('mainMenu', [
     function (session) {
         session.send("Here we go... ");   
-        builder.Prompts.choice(session, "Please choose a quiz level", quiz.levels);
+        builder.Prompts.choice(session, "Please choose a number facts level", quiz.levels);
     },
     function (session, results) {
         session.dialogData.level =  results.response;
         
-        builder.Prompts.number(session, "Please select number of questions");
+        builder.Prompts.number(session, "Please pick a number of questions");
     },    
     function (session, results) {
         session.dialogData.count =  results.response;
-        builder.Prompts.number(session, "Please select the biggest number in this quiz (1 to ...)");
+        builder.Prompts.number(session, "Please pick the biggest number for the number facts questions");
     },
     function (session, results) {
         session.dialogData.limit =  results.response;
